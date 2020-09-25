@@ -19,6 +19,10 @@ class ProjectList extends Component {
     // const [isOpen, setIsOpen] = useState(false);
     // const toggle = () => setIsOpen(!isOpen);
 
+    onDeleteClick = (id) => {
+        this.props.deleteProject(id);
+    }
+
     render() {
         const { projects } = this.props.project;
 
@@ -34,15 +38,13 @@ class ProjectList extends Component {
                     }} >AddItem</Button>
                 <ListGroup>
                     <TransitionGroup className='shopping-list'>
-                        {projects.map(({ id, name }, index) => (
-                            <CSSTransition key={id} timeout={500} classNames="fade">
+                        {projects.map(({ _id, Groups }, index) => (
+                            <CSSTransition key={_id} timeout={500} classNames="fade">
                                 {/* <CollapseListItem ></CollapseListItem> */}
                                 <ListGroupItem>
-                                    <Button className="remove-btn" color="danger" size="sm" onClick={() => {
-                                        // setProjects((projects) => (projects = projects.filter(project => project.id !== id)))
-                                        // this.setState(state => ({ projects: state.projects.filter(project => project.id !== id) }));
-                                    }}>&times;</Button>
-                                    {name}</ListGroupItem>
+                                    <Button className="remove-btn" color="danger" size="sm" onClick={() => this.onDeleteClick(_id)/*this.onDeleteClick.bind(this, id)*/}>&times;</Button>
+                                    {Groups}
+                                </ListGroupItem>
                             </CSSTransition>
                         ))}
                     </TransitionGroup>
