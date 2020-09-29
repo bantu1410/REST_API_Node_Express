@@ -14,7 +14,7 @@ import ProjectsPage from "./projects/ProjectsPage";
 
 function App() {
   return (
-    <div className="container-fluid">
+    <div className="container-xl">
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />

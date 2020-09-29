@@ -5,7 +5,7 @@ const Header = () => {
   const activeStyle = { color: "#F15B2A" };
 
   return (
-    <nav>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <NavLink to="/" activeStyle={activeStyle} exact>
         Home
       </NavLink>
