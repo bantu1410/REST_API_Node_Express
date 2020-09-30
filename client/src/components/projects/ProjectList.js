@@ -14,26 +14,50 @@ const ProjectList = ({ projects }) => {
     return console.log("limit changed ", limit);
   };
 
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [projectsPerPage, setProjectsPerPage] = useState(10);
+
+  const totalPages = Math.ceil(projects.length / projectsPerPage)
+
+  // Get current projects
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+
+  const direction = "ascending" | "descending";
+  const column = "id";
+
+  const handleSort = (clickedColumn) => {
+    return console.log("clicked on sort ", clickedColumn);
+  }
+
+  const handleChangePage = (e, { activePage }) => {
+
+    setCurrentPage(activePage);
+    console.log("clicke on changed page", activePage);
+  }
+
   return (
     <>
       {/* <table className="table table-bordered"> */}
       <ProjectPageSizeSelect limit={10} onChangeLimit={onChangeLimit} />
-      Total count: {128}.
+      Total count: {projects.length}.
       <Table celled selectable sortable>
-        <thead className="thead-dark">
-          <tr>
-            <th>#</th>
-            <th>Project Name</th>
-            <th>System Name</th>
-            <th>Operating System</th>
-            <th>Last Update on</th>
-          </tr>
-        </thead>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell sorted={column === "id" ? direction : undefined} onClick={() => handleSort("id")}>#</Table.HeaderCell>
+            <Table.HeaderCell sorted={column === "project" ? direction : undefined} onClick={() => handleSort("project")}>Project Name</Table.HeaderCell>
+            <Table.HeaderCell sorted={column === "system" ? direction : undefined} onClick={() => handleSort("system")}>System Name</Table.HeaderCell>
+            <Table.HeaderCell sorted={column === "os" ? direction : undefined} onClick={() => handleSort("os")}>Operating System</Table.HeaderCell>
+            <Table.HeaderCell sorted={column === "date" ? direction : undefined} onClick={() => handleSort("date")}>Last Update on</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
         <Table.Body>
-          {projects.map((project, index) => {
+          {currentProjects.map((project, index) => {
             return (
               <Table.Row key={project._id}>
-                <Table.Cell>{index + 1}</Table.Cell>
+                <Table.Cell>{indexOfFirstProject + index + 1}</Table.Cell>
                 <Table.Cell>{project["Project Name"]}</Table.Cell>
                 <Table.Cell>{project["System Name"]}</Table.Cell>
                 <Table.Cell>{project["Operating System"]}</Table.Cell>
@@ -47,25 +71,14 @@ const ProjectList = ({ projects }) => {
           <Table.Row>
             <Table.HeaderCell colSpan="8">
               <Pagination
-                totalPages={128}
-                // activePage={currentPage}
-                // onPageChange={handleChangePage}
+                totalPages={totalPages}
+                activePage={currentPage}
+                onPageChange={handleChangePage}
               />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
       </Table>
-      {/* </table> */}
-      {/* <ListGroup>
-      <TransitionGroup className="shopping-list">
-        {projects.map((project) => (
-          <CSSTransition key={project._id} timeout={500} classNames="fade">
-            // {/* <CollapseListItem ></CollapseListItem> */}
-      {/* <ListGroupItem>{project["System Name"]}</ListGroupItem>
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
-    </ListGroup> */}
     </>
   );
 };
