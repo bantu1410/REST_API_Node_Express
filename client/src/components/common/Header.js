@@ -1,28 +1,39 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  }
+}))
 
 const Header = () => {
-  const activeStyle = { color: "#F15B2A" };
+  const classes = useStyles();
 
   return (
-    <nav className="navbar navbar-expand navbar-light bg-light">
-      <a className="navbar-brand" href="/">ComCore Projects</a>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <NavLink to="/" activeClassName="nav-item active" exact>
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h4" className={classes.title}>
+            ComCore Projects
+          </Typography>
+          <Button color="inherit" component={RouterLink} to="/">
             Home
-      </NavLink>
-          {" | "}
-          <NavLink to="/projects" activeStyle={activeStyle}>
+          </Button>
+          <Button color="inherit" component={RouterLink} to="/projects">
             Projects
-      </NavLink>
-          {" | "}
-          <NavLink to="/analyze" activeStyle={activeStyle}>
+          </Button>
+          <Button color="inherit" component={RouterLink} to="/analyze">
             Analyze
-      </NavLink>
-        </ul>
-      </div>
-    </nav>
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 };
 

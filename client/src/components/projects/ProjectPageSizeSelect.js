@@ -4,14 +4,14 @@ import { DropdownProps } from "semantic-ui-react/dist/commonjs/modules/Dropdown/
 import { DropdownItemProps } from "semantic-ui-react/dist/commonjs/modules/Dropdown/DropdownItem";
 
 const limitOptions = [
-  { key: "0", value: "10", text: "10" },
-  { key: "1", value: "25", text: "25" },
+  { key: "0", value: "15", text: "15" },
+  { key: "1", value: "30", text: "30" },
   { key: "2", value: "50", text: "50" },
-  { key: "3", value: "100", text: "100" },
 ];
 
 const ProjectPageSizeSelect = ({ limit, onChangeLimit }) => {
-  const handleChangeLimit = ({ value }) => {
+  const handleChangeLimit = (e, { value }) => {
+    console.log("value of change ", value)
     onChangeLimit(value);
   };
   return (

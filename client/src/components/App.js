@@ -5,6 +5,7 @@ import AnalyzePage from "./analyze/AnalyzePage";
 import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
 import ProjectsPage from "./projects/ProjectsPage";
+import { Container } from "@material-ui/core"
 
 // import AppNavBar from './components/AppNavBar';
 // import ProjectList from './components/ProjectList';
@@ -14,7 +15,7 @@ import ProjectsPage from "./projects/ProjectsPage";
 
 function App() {
   return (
-    <div className="container-xl">
+    <Container disableGutters="false">
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -22,7 +23,7 @@ function App() {
         <Route path="/projects" component={ProjectsPage} />
         <Route component={PageNotFound} />
       </Switch>
-    </div>
+    </Container>
   );
 }
 
