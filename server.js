@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const connectDB = require('./config/db');
 
 const projects = require('./routes/api/projects');
+const oscounts = require('./routes/api/analyze');
 
 // Load Config
 dotenv.config({ path: './config/config.env' });
@@ -25,10 +26,11 @@ if (process.env.NODE_ENV === 'development') {
 
 // Use Routes (anything that points to the projects link should refer to the projects api js file)
 app.use('/api/projects', projects);
+app.use('/api/oscounts', oscounts);
 
 // firing up the backend on the specified port
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`);
 });

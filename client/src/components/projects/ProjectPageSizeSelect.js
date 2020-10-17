@@ -14,9 +14,10 @@ const ProjectPageSizeSelect = ({ limit, onChangeLimit }) => {
     console.log("value of change ", value)
     onChangeLimit(value);
   };
+  // console.log("limit value ",limit);
   return (
     <>
-      Records per page:{" "}
+      Records per page: {" "}
       <Dropdown
         inline={true}
         options={limitOptions}

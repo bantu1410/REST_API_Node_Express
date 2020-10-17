@@ -57,11 +57,11 @@ const ProjectList = ({ projects }) => {
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
   const currentProjects = items.slice(indexOfFirstProject, indexOfLastProject);
 
-  const direction = "ascending" | "descending";
+  // const direction = "ascending" | "descending";
   const column = "id";
 
-
-
+  console.log("request sort ",sortConfig);
+  // functions
   const onChangeLimit = (limit) => {
     console.log("changed limit ", limit);
     setProjectsPerPage(limit);
@@ -70,6 +70,10 @@ const ProjectList = ({ projects }) => {
   const handleSort = (clickedColumn) => {
     console.log("clicked on sort ", clickedColumn);
     requestSort(clickedColumn);
+  }
+
+  const handleClick = (id) => {
+    console.log("clicked on row ",id);
   }
 
   const handleChangePage = (e, { activePage }) => {
@@ -85,22 +89,24 @@ const ProjectList = ({ projects }) => {
       <Table celled selectable sortable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell sorted={column === "id" ? direction : undefined} onClick={() => handleSort("id")}>#</Table.HeaderCell>
-            <Table.HeaderCell sorted={column === "project" ? direction : undefined} onClick={() => handleSort("Project Name")}>Project Name</Table.HeaderCell>
-            <Table.HeaderCell sorted={column === "system" ? direction : undefined} onClick={() => handleSort("System Name")}>System Name</Table.HeaderCell>
-            <Table.HeaderCell sorted={column === "os" ? direction : undefined} onClick={() => handleSort("Operating System")}>Operating System</Table.HeaderCell>
-            <Table.HeaderCell sorted={column === "date" ? direction : undefined} onClick={() => handleSort("Last Update on")}>Last Update on</Table.HeaderCell>
+            <Table.HeaderCell>#</Table.HeaderCell>
+            <Table.HeaderCell sorted={column === "project" ? sortConfig.direction : undefined} onClick={() => handleSort("Project Name")}>Project Name</Table.HeaderCell>
+            <Table.HeaderCell sorted={column === "system" ? sortConfig.direction : undefined} onClick={() => handleSort("System Name")}>System Name</Table.HeaderCell>
+            <Table.HeaderCell sorted={column === "os" ? sortConfig.direction : undefined} onClick={() => handleSort("Operating System")}>Operating System</Table.HeaderCell>
+            <Table.HeaderCell sorted={column === "date" ? sortConfig.direction : undefined} onClick={() => handleSort("Last Update on")}>Last Update on</Table.HeaderCell>
+            {/* <Table.HeaderCell >Jira Link</Table.HeaderCell> */}
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {currentProjects.map((project, index) => {
             return (
-              <Table.Row key={project._id}>
+              <Table.Row key={project._id} onClick={()=>handleClick(project["System Name"])}>
                 <Table.Cell>{indexOfFirstProject + index + 1}</Table.Cell>
                 <Table.Cell>{project["Project Name"]}</Table.Cell>
                 <Table.Cell>{project["System Name"]}</Table.Cell>
                 <Table.Cell>{project["Operating System"]}</Table.Cell>
                 <Table.Cell>{project["Last Update on"]}</Table.Cell>
+                {/* <Table.Cell href="https://dsgjira.apps.voith.com/projects/ADABM1/issues/ADABM1-8?filter=allopenissues">Jira Link</Table.Cell> */}
               </Table.Row>
             );
           })}

@@ -18,6 +18,8 @@ projectRouter.get('/', (req, res) => {
     if (err) {
       return res.send(err);
     }
+    // res.header('Content-Range', 'projects 0-131/131');
+    // return res.send(projects);
     return res.json(projects);
   });
 });

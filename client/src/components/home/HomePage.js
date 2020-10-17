@@ -5,8 +5,9 @@ const HomePage = () => (
   <div className="jumbotron">
     <h1>ComCore Projects Administration</h1>
     <p>React, Redux and React Router for ultra-responsive web app</p>
-    <Link to="about" className="btn btn-primary btn-lg">
-      Learn more
+    <p>Node, Express, Mongo DB and Python for backend Data collection and hosting</p>
+    <Link to="projects" className="btn btn-primary btn-lg">
+      Go to Projects
     </Link>
   </div>
 );
